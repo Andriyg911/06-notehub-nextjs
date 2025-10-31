@@ -1,8 +1,10 @@
-.input {
-  flex: 1;
-  max-width: 240px;
-  padding: 6px 12px;
-  font-size: 16px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+/* components/SearchBox/SearchBox.module.css */
+.search {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
 }

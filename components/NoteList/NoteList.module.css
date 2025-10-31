@@ -1,94 +1,66 @@
+/* components/NoteList/NoteList.module.css */
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.listItem {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
+.empty {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.title {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #212529;
-}
-
-.content {
-  margin: 0;
-  flex-grow: 1;
-  font-size: 14px;
-  color: #495057;
-  margin-bottom: 12px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.button {
-  align-self: flex-end;
-  padding: 6px 12px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #dc3545;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.button:hover {
-  background-color: #bb2d3b;
-}
-
-.footer {
+.meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
 }
 
 .tag {
-  display: inline-block;
-  padding: 4px 8px;
-  font-size: 12px;
-  color: #0d6efd;
-  background-color: #e7f1ff;
-  border: 1px solid #b6d4fe;
-  border-radius: 12px;
-  max-width: 100px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.link {
-  align-self: flex-end;
-  padding: 6px 12px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #0d6efd; /* синій колір */
-  border: none;
+  background: #f3f4f6;
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background-color 0.2s ease;
+  font-size: 0.75rem;
 }
 
-.link:hover {
-  background-color: #0b5ed7;
+.actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+.actions button {
+  color: #dc2626;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  border-color: #dc2626;
+  background: #fff5f5;
 }

@@ -1,39 +1,65 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { fetchNotes, queryKeys } from "@/lib/api";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid"; // ✅ правильний імпорт
 import NoteList from "@/components/NoteList/NoteList";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import Modal from "@/components/Modal/Modal";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import type { Note, CreateNotePayload } from "@/types/note";
 
-export default function NotesClient({ initialSearch }: { initialSearch: string }) {
-  const [search, setSearch] = useState(initialSearch);
+export default function NotesClient({ initialNotes }: { initialNotes: Note[] }) {
+  const [notes, setNotes] = useState<Note[]>(initialNotes);
+  const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: queryKeys.notes,
-    queryFn: () => fetchNotes(search ? { search } : {}),
-  });
+  const handleCreate = (payload: CreateNotePayload) => {
+    const newNote: Note = {
+      id: uuidv4(), // ✅ тепер генерує унікальний id без помилок
+      title: payload.title,
+      content: payload.content,
+      tag: payload.tag,
+      createdAt: new Date().toISOString(),
+    };
+    setNotes([newNote, ...notes]);
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (id: string) => {
+    setNotes(notes.filter((n) => n.id !== id));
+  };
+
+  const filtered = notes.filter((n) =>
+    n.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <main>
-      <section>
-        <div>
-          <label htmlFor="search">Search:</label>
-          <input
-            id="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="keyword"
-          />
-          <button onClick={() => refetch()}>Apply</button>
-        </div>
+    <div>
+      <SearchBox value={search} onChange={(e) => setSearch(e.target.value)} />
 
-        <NoteForm onCreated={refetch} />
+      <button
+        onClick={() => setIsModalOpen(true)}
+        style={{
+          backgroundColor: "#2563eb",
+          color: "white",
+          padding: "0.5rem 1rem",
+          borderRadius: "6px",
+          border: "none",
+          fontWeight: 600,
+          cursor: "pointer",
+          marginBottom: "1rem",
+        }}
+      >
+        Create note +
+      </button>
 
-        {isLoading && <p>Loading, please wait...</p>}
-        {error && <p>Could not fetch the list of notes. {(error as Error).message}</p>}
-        {!isLoading && !error && <NoteList notes={data?.notes ?? []} onDeleted={refetch} />}
-      </section>
-    </main>
+      <NoteList notes={filtered} onDelete={handleDelete} />
+
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <NoteForm onSubmit={handleCreate} />
+        </Modal>
+      )}
+    </div>
   );
 }

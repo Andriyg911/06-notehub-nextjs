@@ -1,37 +1,58 @@
 "use client";
 
 import { useState } from "react";
-import { createNote } from "@/lib/api";
+import type { CreateNotePayload } from "@lib/api/api";
+import type { NoteTag } from "@/types/note";
+import styles from "./NoteForm.module.css";
 
 interface NoteFormProps {
-  onCreated?: () => void;
+  onSubmit: (payload: CreateNotePayload) => void;
 }
 
-export default function NoteForm({ onCreated }: NoteFormProps) {
+export default function NoteForm({ onSubmit }: NoteFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [tag, setTag] = useState<NoteTag>("Personal");
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    await createNote({ title, content, tag: "general" });
+    if (!title.trim() || !content.trim()) return;
+
+    onSubmit({ title, content, tag });
+
     setTitle("");
     setContent("");
-    onCreated?.(); // викликаємо refetch після створення
-  }
+    setTag("Personal");
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <input
+        className={styles.input}
+        placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
       />
       <textarea
+        className={styles.textarea}
+        placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
       />
-      <button type="submit">Add Note</button>
+      <select
+        className={styles.select}
+        value={tag}
+        onChange={(e) => setTag(e.target.value as NoteTag)}
+      >
+        <option value="Todo">Todo</option>
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Meeting">Meeting</option>
+        <option value="Shopping">Shopping</option>
+      </select>
+      <button type="submit" className={styles.submitBtn}>
+        Add Note
+      </button>
     </form>
   );
 }

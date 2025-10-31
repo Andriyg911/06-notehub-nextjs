@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import css from './Modal.module.css';
+"use client";
+
+import * as React from "react";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import css from "./Modal.module.css";
 
 export interface ModalProps {
   children: React.ReactNode;
@@ -8,18 +11,17 @@ export interface ModalProps {
 }
 
 function ModalContent({ children, onClose }: ModalProps) {
-  useEffect(() => {
+  React.useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
 
-    // Забороняємо прокрутку
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = originalOverflow;
     };
   }, [onClose]);
@@ -29,12 +31,26 @@ function ModalContent({ children, onClose }: ModalProps) {
   };
 
   return (
-    <div className={css.backdrop} role="dialog" aria-modal="true" onMouseDown={onBackdrop}>
+    <div
+      className={css.backdrop}
+      role="dialog"
+      aria-modal="true"
+      onMouseDown={onBackdrop}
+    >
       <div className={css.modal}>{children}</div>
     </div>
   );
 }
 
 export default function Modal({ children, onClose }: ModalProps) {
-  return createPortal(<ModalContent onClose={onClose}>{children}</ModalContent>, document.body);
+  const [portalElement] = useState<HTMLElement | null>(
+    typeof document !== "undefined" ? document.body : null
+  );
+
+  if (!portalElement) return null;
+
+  return createPortal(
+    <ModalContent onClose={onClose}>{children}</ModalContent>,
+    portalElement
+  );
 }

@@ -1,19 +1,20 @@
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { fetchNotes, queryKeys } from "@/lib/api";
+// app/notes/page.tsx
 import NotesClient from "./Notes.client";
+import type { Note } from "@/types/note";
 
-export default async function NotesPage({ searchParams }: { searchParams?: { q?: string } }) {
-  const q = searchParams?.q ?? "";
-  const qc = new QueryClient();
+// Тут можна зробити реальний серверний фетч
+async function fetchNotes(): Promise<Note[]> {
+  // Наприклад, виклик API або бази даних
+  return [];
+}
 
-  await qc.prefetchQuery({
-    queryKey: queryKeys.notes,
-    queryFn: () => fetchNotes(q ? { search: q } : {}),
-  });
+export default async function NotesPage() {
+  const notes = await fetchNotes();
 
   return (
-    <HydrationBoundary state={dehydrate(qc)}>
-      <NotesClient initialSearch={q} />
-    </HydrationBoundary>
+    <div>
+      <h1>Notes</h1>
+      <NotesClient initialNotes={notes} />
+    </div>
   );
 }

@@ -1,28 +1,41 @@
+// components/NoteList/NoteList.tsx
 "use client";
 
-import { deleteNote } from "@/lib/api";
+import Link from "next/link";
 import type { Note } from "@/types/note";
+import styles from "./NoteList.module.css";
 
 interface NoteListProps {
-  notes: Note[];
-  onDeleted?: () => void;
+  notes: Note[] | undefined | null;
+  onDelete: (id: string) => void;
 }
 
-export default function NoteList({ notes, onDeleted }: NoteListProps) {
-  async function handleDelete(id: string) {
-    await deleteNote(id);
-    onDeleted?.(); // викликаємо refetch після видалення
+export default function NoteList({ notes, onDelete }: NoteListProps) {
+  if (!notes || notes.length === 0) {
+    return <p className={styles.empty}>No notes found.</p>;
   }
 
   return (
-    <ul>
+    <div className={styles.list}>
       {notes.map((note) => (
-        <li key={note.id}>
+        <div key={note.id} className={styles.card}>
           <h3>{note.title}</h3>
           <p>{note.content}</p>
-          <button onClick={() => handleDelete(note.id)}>Delete</button>
-        </li>
+
+          <div className={styles.meta}>
+            <span className={styles.tag}>{note.tag}</span>
+            <small>
+              {new Date(note.createdAt).toLocaleDateString()}{" "}
+              {new Date(note.createdAt).toLocaleTimeString()}
+            </small>
+          </div>
+
+          <div className={styles.actions}>
+            <Link href={`/notes/${note.id}`}>View details</Link>
+            <button onClick={() => onDelete(note.id)}>Delete</button>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
