@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { CreateNotePayload } from "@lib/api/api";
+import type { CreateNotePayload } from "@lib/api";
 import type { NoteTag } from "@/types/note";
 import styles from "./NoteForm.module.css";
 

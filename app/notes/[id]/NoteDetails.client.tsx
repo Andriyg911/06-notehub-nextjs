@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api/api";
+import { fetchNoteById } from "@/lib/api";
 import { useParams } from "next/navigation";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import Loader from "@/components/Loader/Loader";
