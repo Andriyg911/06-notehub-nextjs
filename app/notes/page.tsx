@@ -1,20 +1,24 @@
-// app/notes/page.tsx
-import NotesClient from "./Notes.client";
-import type { Note } from "@/types/note";
-
-
-async function fetchNotes(): Promise<Note[]> {
- 
-  return [];
-}
+import {
+  QueryClient,
+  HydrationBoundary,
+  dehydrate,
+} from '@tanstack/react-query';
+import { getNotes } from '../../lib/api';
+import NotesClient from './Notes.client';
 
 export default async function NotesPage() {
-  const notes = await fetchNotes();
+  const queryClient = new QueryClient();
+
+  // Prefetch данных на сервере
+  await queryClient.prefetchQuery({
+    queryKey: ['notes', '', 1],
+    queryFn: () => getNotes('', 1, 12),
+  });
 
   return (
-    <div>
-      <h1>Notes</h1>
-      <NotesClient initialNotes={notes} />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotesClient />
+    </HydrationBoundary>
   );
 }
+
