@@ -1,66 +1,70 @@
-/* components/NoteList/NoteList.module.css */
-.list {
+.noteList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 20px;
 }
 
-.empty {
-  color: #6b7280;
-  font-size: 0.95rem;
-}
-
-.card {
+.noteItem {
   background: #fff;
-  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.meta {
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.noteItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.tag {
-  background: #f3f4f6;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-}
-
-.actions {
-  margin-top: 0.75rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.actions a {
-  color: #2563eb;
+.noteLink {
   text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+
+.noteTitle {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: #333;
+}
+.noteContent {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+
+.noteCategory {
+  display: inline-block;
+  font-size: 0.8rem;
   font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #e3f2fd;
+  color: #1976d2;
 }
 
-.actions a:hover {
-  text-decoration: underline;
-}
-
-.actions button {
-  color: #dc2626;
-  background: none;
-  border: 1px solid transparent;
+.deleteButton {
+  margin-top: 12px;
+  align-self: flex-end;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
   border-radius: 6px;
-  padding: 0.25rem 0.5rem;
   cursor: pointer;
 }
-
-.actions button:hover {
-  border-color: #dc2626;
-  background: #fff5f5;
+.deleteButton:hover {
+  background: #c62828;
+}
+.deleteButton:disabled {
+  background: #ef9a9a;
+  cursor: not-allowed;
 }

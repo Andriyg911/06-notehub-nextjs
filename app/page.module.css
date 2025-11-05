@@ -1,141 +1,174 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+/* Контейнер */
+.container {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
 }
 
-.main {
+/* Панель пошуку + кнопка */
+.toolbar {
   display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-.intro {
+.searchBar {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-right: 12px;
+}
+
+.createBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.createBtn:hover {
+  background: #1d4ed8;
+}
+
+/* Сітка нотаток */
+.notesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Картка */
+.noteCard {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  justify-content: space-between;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.noteCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.noteCard h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: #1a1a1a;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.noteCard p {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 12px;
+  line-height: 1.4;
 }
 
-.intro a {
+/* Бейдж категорії */
+.label {
+  display: inline-block;
+  font-size: 0.8rem;
   font-weight: 500;
-  color: var(--text-primary);
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
-.ctas {
+.label.work {
+  background: #e0f0ff;
+  color: #0366d6;
+}
+.label.personal {
+  background: #ffeef0;
+  color: #d73a49;
+}
+.label.todo {
+  background: #e6ffed;
+  color: #22863a;
+}
+.label.meeting {
+  background: #fff3cd;
+  color: #856404;
+}
+.label.shopping {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+/* Кнопки дій */
+.actions {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
-}
-
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
+  justify-content: flex-end;
   gap: 8px;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.actions button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.actions .view {
+  background: #2196f3;
+  color: #fff;
+}
+.actions .view:hover {
+  background: #1976d2;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.actions .delete {
+  background: #dc3545;
+  color: #fff;
+}
+.actions .delete:hover {
+  background: #b02a37;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+/* Пагінація */
+.pagination {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+.pagination button {
+  border: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+.pagination button:hover {
+  background: #f0f0f0;
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.pagination button.active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
 }

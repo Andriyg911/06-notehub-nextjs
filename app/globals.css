@@ -1,42 +1,110 @@
-/* Reset */
-* {
+/* Базові стилі для сторінки */
+html,
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   background-color: #f8f9fa;
   color: #212529;
   line-height: 1.5;
 }
 
-/* Контейнер для children */
-main {
-  flex: 1;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
+/* Заголовки */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
+  color: #212529;
+  margin-top: 0;
 }
 
-/* Посилання */
-a {
-  color: #2563eb;
-  text-decoration: none;
+/* Теги (Work, Personal, Todo, Meeting, Shopping) */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
 }
-a:hover {
-  text-decoration: underline;
+
+.tag.work {
+  background-color: #e0f0ff;
+  color: #0366d6;
+}
+
+.tag.personal {
+  background-color: #ffeef0;
+  color: #d73a49;
+}
+
+.tag.todo {
+  background-color: #e6ffed;
+  color: #22863a;
+}
+
+.tag.meeting {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.tag.shopping {
+  background-color: #e2e3e5;
+  color: #383d41;
 }
 
 /* Кнопки */
 button {
-  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Варіанти кнопок */
+button.primary {
+  background-color: #2563eb;
+  color: #fff;
+}
+button.primary:hover {
+  background-color: #1d4ed8;
+}
+
+button.danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+button.danger:hover {
+  background-color: #b02a37;
+}
+
+/* Сітка для списків */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Адаптивність */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

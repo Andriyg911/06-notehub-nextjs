@@ -1,25 +1,36 @@
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
+  gap: 6px;
+  margin: 24px 0;
+  list-style: none;
 }
 
-.pagination button {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #d1d5db;
+.pageItem {
+  display: inline-block;
+}
+
+.pageLink {
+  display: block;
+  padding: 8px 12px;
   border-radius: 6px;
+  border: 1px solid #ddd;
   background: #fff;
+  color: #333;
   cursor: pointer;
-  font-weight: 500;
+}
+.pageLink:hover {
+  background: #f0f0f0;
 }
 
-.pagination button:hover {
-  background: #f3f4f6;
+.active .pageLink {
+  background: #1976d2;
+  color: #fff;
+  border-color: #1976d2;
 }
 
-.active {
-  background-color: #2563eb;
-  color: white;
-  border-color: #2563eb;
+.disabled .pageLink {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
 }

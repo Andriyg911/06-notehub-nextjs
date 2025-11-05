@@ -1,10 +1,29 @@
-/* components/SearchBox/SearchBox.module.css */
-.search {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+.searchBox {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  background: #fff;
+}
+.input:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.button:hover {
+  background: #1565c0;
 }
